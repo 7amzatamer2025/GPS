@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14122b">
+<title>مستكشف — افتح المدينة</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="night">
+
+<section id="auth">
+  <form class="card" id="authForm">
+    <h1>مستكشف</h1>
+    <p class="mute">امشي، افتح الخريطة، واكسب نقط.</p>
+    <div class="tabs"><button type="button" class="on" data-mode="login">دخول</button><button type="button" data-mode="register">حساب جديد</button></div>
+    <label>اسم المستخدم<input id="aUser" autocomplete="username" required minlength="3" maxlength="20" placeholder="حروف إنجليزي وأرقام" dir="ltr"></label>
+    <label>الباسورد<input id="aPass" type="password" autocomplete="current-password" required minlength="6"></label>
+    <p id="aErr" class="err" role="alert"></p>
+    <button class="primary" id="aGo">دخول</button>
+  </form>
+</section>
+
+<main id="game" hidden>
+  <div id="map"></div>
+  <canvas id="fog"></canvas>
+  <div class="hud">
+    <div class="chip">المستوى <b id="lvl">1</b></div>
+    <div class="bar" title="التقدم للمستوى التالي"><i id="xp"></i></div>
+    <div class="chip"><b id="pts">0</b> نقطة</div>
+  </div>
+  <div id="toast"><small id="tSub"></small><h3 id="tName"></h3><small id="tPts"></small></div>
+  <nav class="dock">
+    <button id="bProfile">حسابي</button>
+    <button id="bBoard">المتصدرين</button>
+    <button id="bMode">GPS</button>
+    <button id="bCenter">موقعي</button>
+  </nav>
+</main>
+
+<dialog id="profile"><div class="card">
+  <h2>حسابي</h2>
+  <img id="avatar" class="av" alt="الصورة الشخصية">
+  <label>غيّر الصورة<input type="file" id="fAv" accept="image/*"></label>
+  <label>الاسم الظاهر<input id="fName" maxlength="24"></label>
+  <label>الثيم<select id="fTheme"><option value="night">ليلي</option><option value="neon">نيون</option><option value="parchment">خريطة كنز</option></select></label>
+  <div id="stats" class="mute"></div>
+  <div id="badges" class="badges"></div>
+  <details><summary>تغيير الباسورد</summary>
+    <label>الباسورد الحالي<input id="pOld" type="password" autocomplete="current-password"></label>
+    <label>الباسورد الجديد<input id="pNew" type="password" minlength="6" autocomplete="new-password"></label>
+    <button id="bPass">تغيير الباسورد</button>
+  </details>
+  <p id="pMsg" class="mute" role="status"></p>
+  <button class="primary" id="bSave">حفظ</button>
+  <div class="row"><button id="bClose">إغلاق</button><button id="bOut">تسجيل خروج</button></div>
+</div></dialog>
+
+<dialog id="board"><div class="card">
+  <h2>لوحة المتصدرين</h2>
+  <ol id="list" class="list"></ol>
+  <button id="bBoardClose">إغلاق</button>
+</div></dialog>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
