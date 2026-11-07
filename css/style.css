@@ -50,3 +50,4 @@ details{display:grid;gap:8px}summary{cursor:pointer;color:var(--mute)}
 @keyframes g{from{box-shadow:0 0 50px 12px var(--glow);transform:scale(1.5)}}
 @media (prefers-reduced-motion:reduce){.me-dot::after,.shop{animation:none}#toast{transition:none}}
 .leaflet-container{font-family:inherit}
+#map.dark .leaflet-tile-pane{filter:invert(1) hue-rotate(200deg) brightness(.8) contrast(.95) saturate(.7)}
