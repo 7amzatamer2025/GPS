@@ -1,9 +1,6 @@
 // الخريطة + الضباب + الاكتشاف
 const R = 70, CELL = 0.0004, AREA = 0.01; // نصف قطر الكشف بالمتر / خلية الخطوة / خلية المنطقة
-const TILES = {
-  dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-  light: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
-};
+const TILE = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'; // بدون مفتاح، والثيمات الداكنة بفلتر CSS
 let ac;
 export function beep(f = 660, t = .18) {
   try {
@@ -88,7 +85,7 @@ export function createGame(h) {
     init() {
       if (map) { map.invalidateSize(); fog(); return; }
       map = L.map('map', { zoomControl: false }).setView([30.0444, 31.2357], 16);
-      tiles = L.tileLayer(TILES.dark, { maxZoom: 19, attribution: '© OpenStreetMap © CARTO' }).addTo(map);
+      tiles = L.tileLayer(TILE, { maxZoom: 19, attribution: '© OpenStreetMap contributors' }).addTo(map);
       shopLayer = L.layerGroup().addTo(map);
       me = L.marker([30.0444, 31.2357], { icon: L.divIcon({ className: '', html: '<div class="me-dot"></div>', iconSize: [20, 20] }) }).addTo(map);
       cv = document.getElementById('fog'); cx = cv.getContext('2d');
@@ -114,7 +111,7 @@ export function createGame(h) {
       shopLayer.clearLayers(); Object.values(P.shops).forEach(addShop); fog();
     },
     data() { return { cells: [...P.cells], areas: P.areas, shops: P.shops }; },
-    setDark(dark) { tiles.setUrl(dark ? TILES.dark : TILES.light); fog(); },
+    setDark(dark) { document.getElementById('map').classList.toggle('dark', dark); fog(); },
     refresh: fog,
     center() { map.panTo(me.getLatLng()); },
     reset() { P.cells = new Set(); P.areas = {}; P.shops = {}; demo.clear(); shopLayer && shopLayer.clearLayers(); fog(); },
